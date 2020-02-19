@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::get('/ads-detail-automobile', function () {
     return view('automobile');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
