@@ -15,9 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/ads-detail-automobile', function () {
-    return view('automobile');
+Route::get('/single-page', function () {
+    return view('single');
 });
+
+Route::get('/front-page', function () {
+    return view('front');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -1,4 +1,4 @@
-@extends('layouts.frontend-layout')
+@extends('layouts.single-layout')
 
 @section('content')
     <div class="col-md-9 page-content col-thin-right">
