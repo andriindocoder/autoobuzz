@@ -19,12 +19,11 @@ Route::get('/single-page', function () {
     return view('single');
 });
 
-Route::get('/front-page', function () {
-    return view('front');
-});
+Route::get('/front-page', 'FrontpageController@index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', 'TestController@index')->name('test');
+Route::get('/test-api', 'TestController@testApi')->name('test-api');
