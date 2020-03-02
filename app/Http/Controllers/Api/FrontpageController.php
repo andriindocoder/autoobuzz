@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\BuzzCarmaker;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\BuzzCarmaker;
 
 class FrontpageController extends Controller
 {
@@ -62,5 +62,20 @@ class FrontpageController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function category($category)
+    {
+        $category = BuzzCarmaker::where('niceName', $category)->first();
+        $subCat = [];
+        foreach ($category->models as $model) {
+            foreach ($model->modelYears as $year) {
+                $subCat[] = [
+                    'id' => $year->brandModelYearId,
+                    'name' => $year->brandModelYear . ' ' . $category->name . ' ' . $model->modelName,
+                ];
+            }
+        }
+        return $subCat;
     }
 }

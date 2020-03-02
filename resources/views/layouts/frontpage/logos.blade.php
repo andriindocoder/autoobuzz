@@ -10,7 +10,7 @@
 
         @foreach($carmake as $make)
         <div class="col-xl-2 col-md-3 col-sm-3 col-xs-4 f-category">
-            <a href="job-list.html"><img alt="img" class="img-responsive"
+            <a href="{{ url('category')}}/{{$make['niceName']}}"><img alt="img" class="img-responsive"
                     src="{{ asset('frontend/images/logos').'/'.$make['niceName'].'.jpg' }}">
             </a>
         </div>
