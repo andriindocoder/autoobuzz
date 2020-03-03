@@ -29,3 +29,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', 'TestController@index')->name('test');
 Route::get('/test-api', 'TestController@testApi')->name('test-api');
+Route::post('/token', 'Auth\LoginController@getToken');
