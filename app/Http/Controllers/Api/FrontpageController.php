@@ -67,15 +67,23 @@ class FrontpageController extends Controller
     public function category($category)
     {
         $category = BuzzCarmaker::where('niceName', $category)->first();
+        $slug = $category->niceName;
+        $brandDescription = $category->brandDescription->brandDescription;
         $subCat = [];
         foreach ($category->models as $model) {
             foreach ($model->modelYears as $year) {
                 $subCat[] = [
                     'id' => $year->brandModelYearId,
-                    'name' => $year->brandModelYear . ' ' . $category->name . ' ' . $model->modelName,
+                    'name' => $year->brandModelYear . ' ' . $category->name . ' ' . $model->modelName
                 ];
             }
         }
-        return $subCat;
+        return 
+        [
+            'slug' => $slug,
+            'description' => $brandDescription,
+            'data' => $subCat
+        ];
+        
     }
 }

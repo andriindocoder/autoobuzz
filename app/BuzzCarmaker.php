@@ -12,4 +12,8 @@ class BuzzCarmaker extends Model
     {
         return $this->hasMany(CarBrandModel::class, 'brandIdCode', 'id');
     }
+
+    public function brandDescription() {
+    	return $this->belongsTo(CarBrand::class, 'id', 'brandId');
+    }
 }
