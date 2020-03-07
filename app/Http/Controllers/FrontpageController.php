@@ -1,42 +1,44 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\BuzzCarmaker;
 
 class FrontpageController extends Controller
 {
     public function index()
     {
-        $makes = $this->getApiCarMake();
+        $makes = BuzzCarmaker::orderBy('name')->get()->toArray();
         $carmake = collect($makes);
         $brand = $carmake->pluck('name');
 
         return view('front', compact('carmake', 'brand'));
     }
 
-    protected function getApiCarMake()
-    {
-        header('Access-Control-Allow-Origin: *');
-        $url = "http://localhost:8000/api/front-page";
-        $response = file_get_contents($url);
-        $data = json_decode($response, true);
-        return $data;
-    }
-
-    protected function getApiCategory($category)
-    {
-        header('Access-Control-Allow-Origin: *');
-        $url = "http://localhost:8000/api/category/{$category}";
-        $response = file_get_contents($url);
-        $data = json_decode($response, true);
-        return $data;
-    }
-
     public function category($category)
     {
-        $cat = $this->getApiCategory($category);
+        $category = BuzzCarmaker::where('niceName', $category)->first();
+        $slug = $category->niceName;
+        $brandDescription = $category->brandDescription->brandDescription;
+        $subCat = [];
+        foreach ($category->models as $model) {
+            foreach ($model->modelYears as $year) {
+                $subCat[] = [
+                    'id' => $year->brandModelYearId,
+                    'name' => $year->brandModelYear . ' ' . $category->name . ' ' . $model->modelName
+                ];
+            }
+        }
+
+        $theCategory = [
+            'slug' => $slug,
+            'description' => $brandDescription,
+            'data' => $subCat
+        ];
+
         echo "<pre>";
-        print_r($cat);
+        print_r($theCategory);
         echo "</pre>";
         die();
+        
     }
 }
